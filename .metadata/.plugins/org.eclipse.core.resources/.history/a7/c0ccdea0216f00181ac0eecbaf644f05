@@ -1,0 +1,38 @@
+
+package com.sundogsoftware.sparkstreaming
+
+import org.apache.spark.SparkConf
+import org.apache.spark.streaming.{Seconds, StreamingContext, Time}
+import org.apache.spark.storage.StorageLevel
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkContext
+
+import java.util.regex.Pattern
+import java.util.regex.Matcher
+
+import Utilities._
+import net.liftweb.json._
+/** Illustrates using SparkSQL with Spark Streaming, to issue queries on 
+ *  Apache log data extracted from a stream on port 9999.
+ */
+object jsonTry {
+  implicit val formats = DefaultFormats
+  case class Mailserver(url: String, username: String, password: String)
+  
+  val json = parse({"url": "imap.yahoo.com", "username": "myusername", "password": "mypassword"})
+  
+  def main(args: Array[String]) {
+
+    val m = json.extract[Mailserver]
+    println(m.url)
+    println(m.username)
+    println(m.password)
+ 
+
+  
+  }
+}
+
+
+
